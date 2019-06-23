@@ -1,0 +1,30 @@
+\documentclass[border=5]{standalone} 
+\usepackage{tikz,array,centernot,amsmath,mathrsfs}
+\setlength{\extrarowheight}{2em}
+\tikzset{%
+  v 0/.style={fill=white}, v 1/.style={fill=blue!30},
+  pics/venn/.style args={#1#2#3#4}{code={%
+    \fill [v #4/.try] (-2,-1.5) rectangle (2,1.5);
+    \fill [v #3/.try] (90:sin 60) arc (120:-120:1) arc (-60:60:1);
+    \fill [v #2/.try] (90:sin 60) arc (60:300:1)   arc (240:120:1);
+    \fill [v #1/.try] (90:sin 60) arc (120:240:1)  arc (-60:60:1);
+    \draw (-2,-1.5) rectangle (2,1.5)
+      (90:sin 60) arc (120:-120:1) arc (-60:60:1)
+      arc (60:300:1) arc (240:120:1) -- cycle;
+}}}
+\newcommand\venn[2][]{{\tikz[every venn/.try, #1]\pic{venn/.expanded=#2};}}
+\tikzset{every venn/.style={x=1em, y=1em, baseline=-.666ex, 
+  v 1/.style={fill=gray}}}
+\begin{document} 
+$\displaystyle
+\begin{array}{|c|c|c|c|}
+\hline
+\textrm{Truth Table} & \textrm{Venn Diagram} & \textrm{Connective} & \textrm{Connective Name} \\
+\hline
+FFFF & \venn{0000} & \mathscr{P} \perp \mathscr{Q} & \textrm{Contradiction} \\
+FFFT & \venn{0001} & \mathscr{P} \overline{\lor} \mathscr{Q} & \textrm{Nondisjunction (Nor)} \\
+FFTF & \venn{0010} & \mathscr{P} \centernot\impliedby \mathscr{Q} & \textrm{Converse Nonimplication} \\[2em]
+\hline
+\end{array}
+$
+\end{document}

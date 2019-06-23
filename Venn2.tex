@@ -1,0 +1,21 @@
+\documentclass[tikz,border=5]{standalone} 
+\tikzset{%
+  v 0/.style={fill=white}, v 1/.style={fill=blue!30},
+  pics/venn/.style args={#1#2#3#4}{code={%
+    \fill [v #1/.try] (-2,-1.5) rectangle (2,1.5);
+    \fill [v #2/.try] (90:sin 60) arc (120:-120:1) arc (-60:60:1);
+    \fill [v #3/.try] (90:sin 60) arc (60:300:1)   arc (240:120:1);
+    \fill [v #4/.try] (90:sin 60) arc (120:240:1)  arc (-60:60:1);
+    \draw (-2,-1.5) rectangle (2,1.5)
+      (90:sin 60) arc (120:-120:1) arc (-60:60:1)
+      arc (60:300:1) arc (240:120:1) -- cycle;
+}}}
+\pgfmathsetbasenumberlength{4}% <- Very important!
+\begin{document} 
+\begin{tikzpicture}[x=1em,y=1em]
+\foreach \i in {0,...,15}{
+  \pgfmathdectobase\n{\i}{2}
+  \pic at ({mod(\i, 4)*6}, {-floor(\i/4)*4}) {venn/.expanded=\n};
+}
+\end{tikzpicture}
+\end{document}

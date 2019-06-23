@@ -1,0 +1,76 @@
+\documentclass[letterpaper]{book}
+
+\usepackage{xcolor}
+\definecolor{azure}{HTML}{105F74}
+
+\usepackage{enumitem}
+
+\usepackage{multicol}
+  \setlength{\columnseprule}{.3pt}
+  \def\columnseprulecolor{\color{azure}}
+\usepackage{geometry}
+\usepackage{tocloft}
+  \setlength{\cftsecindent}{0em}
+  \setlength{\cftsecnumwidth}{2em}
+  \setlength{\cftsubsecindent}{\cftsecindent}
+  \addtolength{\cftsubsecindent}{\cftsecnumwidth}
+  \setlength{\cftsubsecnumwidth}{3em}
+  \setlength{\cftsubsubsecindent}{\cftsubsecindent}
+  \addtolength{\cftsubsubsecindent}{\cftsubsecnumwidth}
+\usepackage[english]{minitoc}
+  \mtcsettitle{minitoc}{}
+  \mtcsetrules{minitoc}{off}
+  \setlength{\mtcindent}{0em}
+
+\begin{document}
+  \dominitoc
+  \faketableofcontents
+
+  \chapter{Introduction to Functions}
+    \begin{multicols}{2}
+
+      \begin{minipage}[t]{\linewidth}
+      \textcolor{azure}{\large\bfseries Learning goals}
+        \begin{enumerate}[label=\color{azure}\theenumi.]
+          \item  First Goal
+          \item  Second goal
+        \end{enumerate}
+      \end{minipage}
+
+      \begin{minipage}[t]{\linewidth}
+      \textcolor{azure}{\large\bfseries Inhaltsangabe}
+        \minitoc
+      \end{minipage}
+
+    \end{multicols}
+
+  \section{Section One}
+    \subsection{Subsection One}
+  \section{Section Two}
+  \section{Section Three}
+  \section{Section Four}
+
+  \chapter{Introduction to ghhh}
+    \begin{multicols}{2}
+
+      \begin{minipage}[t]{\linewidth}
+      \textcolor{azure}{\large\bfseries Learning goals}
+        \begin{enumerate}[label=\color{azure}\theenumi.]
+          \item  First Goal
+          \item  Second goal
+        \end{enumerate}
+      \end{minipage}
+
+      \begin{minipage}[t]{\linewidth}
+      \textcolor{azure}{\large\bfseries Inhaltsangabe}
+        \minitoc
+      \end{minipage}
+
+    \end{multicols}
+
+  \section{Section One}
+    \subsection{Subsection One}
+  \section{Section Two}
+  \section{Section Three}
+  \section{Section Four}
+\end{document}
