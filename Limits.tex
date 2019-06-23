@@ -1,0 +1,12 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark}
+\begin{document}
+\[\lim_{x\to0}\tikzmarknode{ex}{\mathrm{e}^x}\left(2+4x\right)~=~2\]
+\iftikzmark{ex}{\begin{tikzpicture}[overlay,remember picture]
+\draw[red,->] ([xshift=1pt,yshift=1pt]ex.north east) -- ++(45:{width("$\scriptstyle x\to0$")*1pt})
+node[midway,sloped,above]{$\scriptstyle x\to0$}
+node[above right=-1pt]{$1$};
+\end{tikzpicture}}{}
+\end{document}
