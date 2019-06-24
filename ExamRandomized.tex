@@ -1,0 +1,137 @@
+\documentclass{exam}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,shorthands=off]{babel}
+\usepackage{cmbright}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{expl3}
+\usepackage{environ}
+\usetikzlibrary{calc, cd}
+
+\newcommand{\n}[1]{\boldsymbol{#1}}
+
+\theoremstyle{definition}
+\newtheorem{ej}{Ejercicio}
+
+\newcommand{\tq}{\;|\;}
+
+\ExplSyntaxOn
+\seq_new:N \l_luisturcio_questions_seq
+\seq_new:N \l_luisturcio_indices_seq
+\int_new:N \l_luisturcio_index_int
+\int_new:N \l_luisturcio_questions_int
+\tl_new:N \l_luisturcio_questions_tl
+\tl_new:N \l_luisturcio_index_tl
+\bool_new:N \l_luisturcio_loop_bool
+\NewEnviron { randomizedquestions } [1][]
+  {
+    \luisturcio_sequence_questions:V \BODY
+    \luisturcio_shuffle_questions:n { #1 }
+    \luisturcio_create_questions_tl:
+    \exp_args:Nno \begin{questions} \l_luisturcio_questions_tl \end{questions}
+  }
+\cs_new:Nn \luisturcio_sequence_questions:n
+  {
+    \seq_set_split:Nnn \l_luisturcio_questions_seq { \question } { #1 }
+    \seq_remove_all:Nn \l_luisturcio_questions_seq {}
+  }
+\cs_generate_variant:Nn \luisturcio_sequence_questions:n { V }
+\cs_new:Nn \luisturcio_shuffle_questions:n
+  {
+    \int_set:Nn \l_luisturcio_questions_int
+      { \seq_count:N \l_luisturcio_questions_seq }
+    \tl_if_empty:nTF { #1 }
+      {
+        \int_step_inline:nnnn
+          { \l_luisturcio_questions_int } { -\c_one } { \c_one }
+      }
+      {
+        \int_compare:nNnTF { \l_luisturcio_questions_int } > { #1 }
+          {
+            \int_step_inline:nnnn
+              { \l_luisturcio_questions_int } { -\c_one }
+              { \l_luisturcio_questions_int - #1 + \c_one }
+          }
+          {
+            \int_step_inline:nnnn
+              { \l_luisturcio_questions_int } { -\c_one } { \c_one }
+          }
+      }
+      {
+        \int_set:Nn \l_luisturcio_index_int { \int_rand:nn { \c_one } { ##1 } }
+        \luisturcio_add_to_indices:
+      }
+  }
+\cs_new:Nn \luisturcio_add_to_indices:
+  {
+    \bool_set_true:N \l_luisturcio_loop_bool
+    \bool_do_while:Nn \l_luisturcio_loop_bool
+      {
+        \seq_if_in:NxTF \l_luisturcio_indices_seq
+          { \int_use:N \l_luisturcio_index_int }
+          {
+            \int_incr:N \l_luisturcio_index_int
+          }
+          {
+            \seq_put_right:Nx \l_luisturcio_indices_seq
+              { \int_use:N \l_luisturcio_index_int }
+            \bool_set_false:N \l_luisturcio_loop_bool
+          }
+      }
+  }
+\cs_new:Nn \luisturcio_create_questions_tl:
+  {
+    \tl_clear:N \l_luisturcio_questions_tl
+    \bool_while_do:nn { ! \seq_if_empty_p:N \l_luisturcio_indices_seq }
+      {
+        \tl_put_right:Nn \l_luisturcio_questions_tl { \question }
+        \seq_pop_right:NN \l_luisturcio_indices_seq \l_luisturcio_index_tl
+        \tl_put_right:Nx \l_luisturcio_questions_tl
+          {
+            \seq_item:Nn \l_luisturcio_questions_seq { \l_luisturcio_index_tl }
+          }
+      }
+  }
+\ExplSyntaxOff
+
+\title{Conjuntos Abstractos}
+\author{}
+\date{}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{randomizedquestions}
+\question Demuestra que iso implica biyectiva.
+
+\question Demuestra que la categoría $1/\mathcal{S}$ tiene todos los límites finitos. Los objetos de $1/\mathcal{S}$ son parejas $(A,a:1\to A)$, donde $A$ es un conjunto abstracto; y las flechas $f:(A,a:1\to A)\to(B,b:1\to B)$ son flechas entre conjuntos abstractos $f:A\to B$ que hacen conmutar al siguiente diagrama
+\begin{center}
+    \begin{tikzcd}[ampersand replacement=\&]
+        \& 1 \arrow[ld, "a"swap] \arrow[rd, "b"] \\
+        A \arrow[rr, "f"swap] \&\& B
+    \end{tikzcd}
+\end{center}
+
+\question Demuestra que si una categoría $\n{C}$ tiene coproductos y coigualadores entonces tiene todos los colímites.
+
+\question Demuestra que todo igualador es mono.
+
+\question Sean \tikzcd[cramped, sep=small,ampersand replacement=\&] U \arrow[r, rightarrowtail, "i"] \& A \endtikzcd{} e \tikzcd[cramped, sep=small,ampersand replacement=\&] V \arrow[r, rightarrowtail, "j"] \& A \endtikzcd{} subobjetos de $A$. Diremos que $i$ es equivalente ($i\sim j$) a $j$ si $i\subseteq j$ y $j\subseteq i$. Demuestra que la relación $\sim$ es de equivalencia.
+
+\question Sean $A$ un conjuntos abstractos y considera los conjuntos
+\begin{gather*}
+Sub(A)=\{\tikzcd[cramped, sep=small, ampersand replacement=\&] U \arrow[r, rightarrowtail, "i"] \& A \endtikzcd{}
+         \tq \text{$i$ es mono}\}/\sim \\
+\mathcal{S}(A,B)=\{f:A\to B\tq\text{$f$ es una flecha en $\mathcal{S}$}\}
+\end{gather*}
+Demuestra que hay una biyección $Sub(A)\cong\mathcal{S}(A,2)$.
+\end{randomizedquestions}
+
+\end{document}

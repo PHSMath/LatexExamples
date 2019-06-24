@@ -1,0 +1,17 @@
+\documentclass{article}%
+\usepackage{sagetex}
+\begin{document}
+\begin{sagesilent}
+x = var('x')
+Problems = r"Factor each quadratic:\\ \begin{enumerate}"
+for i in range(0,20):
+    r1 = Integer(randint(-10,10))
+    r2 = Integer(randint(-10,10))
+    while r1 == -r2:
+        r2 = Integer(randint(-10,10))
+    poly = expand((x-r1)*(x-r2))
+    Problems += r"\item $%s = %s$"%(latex(poly),latex(factor(poly)))
+Problems += r"\end{enumerate}"
+\end{sagesilent}
+\sagestr{Problems}
+\end{document}

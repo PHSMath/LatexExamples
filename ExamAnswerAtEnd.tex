@@ -1,0 +1,55 @@
+\documentclass[answers]{exam}
+\usepackage{xparse}
+
+\ExplSyntaxOn
+\seq_new:N \l_exam_beginprint_seq
+\seq_new:N \g_exam_beginprint_seq
+
+\NewDocumentCommand \WriteQuestion { +m } {
+    \seq_gput_right:Nx \l_exam_beginprint_seq { #1 }
+    \question #1
+}
+
+\NewDocumentCommand \PrintQuestions { } {
+    \begin{questions}
+        \seq_map_inline:Nn \g_exam_beginprint_seq { \question ~ ##1 }
+        \item[] 
+    \end{questions}
+}
+
+\cs_new:Npn \QuestionFromAux #1 {
+    \seq_gput_right:Nn \g_exam_beginprint_seq { #1 }
+}
+
+\AtEndDocument {
+    \seq_map_inline:Nn \l_exam_beginprint_seq {
+        \iow_now:cx { @auxout } {
+            \token_to_str:N \QuestionFromAux { #1 }
+            ^^J
+        }
+    }
+}
+\ExplSyntaxOff
+
+\begin{document}
+\PrintQuestions
+
+\newpage
+
+\begin{questions}
+\WriteQuestion{First question}
+\begin{EnvFullwidth}
+\begin{solutionbox}{2in}
+    This looks good,
+\end{solutionbox}
+\end{EnvFullwidth}
+
+\WriteQuestion{Second question}
+\begin{EnvFullwidth}
+\begin{solutionbox}{2in}
+    Not so good.
+\end{solutionbox}
+\end{EnvFullwidth}
+\end{questions}
+
+\end{document}

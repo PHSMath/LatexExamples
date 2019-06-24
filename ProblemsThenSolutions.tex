@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{ifthen}
+\makeatletter
+\newcommand{\mynameis}[1]{%
+  \phantomsection#1% Mark hyperlink
+  \renewcommand{\@currentlabel}{#1}%
+  \renewcommand{\@currentlabelname}{#1}}
+\makeatother
+\newcounter{probcount}
+\newcounter{pcindex}
+\newcommand\addProblemPlusSolution[2]{%
+  \stepcounter{probcount}
+  \expandafter\def\csname P\romannumeral\theprobcount\endcsname{#1}%
+  \expandafter\def\csname S\romannumeral\theprobcount\endcsname{#2}%
+}
+\newcommand\showProblemsThenSolutions{%
+  \setcounter{pcindex}{0}%
+  \whiledo{\thepcindex < \theprobcount}{%
+    \stepcounter{pcindex}%
+    \subsection*{\mynameis{Problem \thepcindex}%
+                 \label{LP\romannumeral\thepcindex}
+                 {\small\mdseries(see \ref{LS\romannumeral\thepcindex})}}
+
+    \csname P\romannumeral\thepcindex\endcsname
+  }%
+  \newpage
+  \setcounter{pcindex}{0}%
+  \whiledo{\thepcindex < \theprobcount}{%
+    \stepcounter{pcindex}%
+    \subsection*{\mynameis{Solution \thepcindex}%
+                 \label{LS\romannumeral\thepcindex}
+                 {\small\mdseries(see \ref{LP\romannumeral\thepcindex})}}
+
+    \csname S\romannumeral\thepcindex\endcsname
+  }%
+}
+\begin{document}
+\addProblemPlusSolution
+{
+  What is the distance between the points $(0,4)$ and $(6,5)$? State your answer in simplest radical form.
+}{
+  \[d=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2} \]
+  \[d=\sqrt{(6-0)^2+(5-4)^2}\]
+  \[d=\sqrt{6^2+1^2}\]
+  \[d=\sqrt{37}\]
+}
+\addProblemPlusSolution
+{
+  \lipsum[2-3]
+
+  \[E = mc^2\]
+}{
+  \[ c = 186,000 \textrm{mi/s} \]
+
+  \lipsum[4]
+}
+
+\showProblemsThenSolutions
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+% generate blindtext
+\usepackage{blindtext}
+
+% add dot after section number
+\makeatletter
+\g@addto@macro\thesection.
+\makeatother
+
+% define command for exercise and solution
+\newcommand{\problem}[1]{\section{Exercise}\subsection*{Problem}{#1}}
+\newcommand{\solution}[1]{\subsection*{Solution for Problem \arabic{section}}{#1}}
+
+
+\begin{document}
+\title{Sheet 1}
+\maketitle
+
+
+% testing without own commands
+\section{Exercise}
+
+\subsection*{Problem}
+\blindtext
+
+\subsection*{Solution for Problem \arabic{section}}
+\blindtext
+
+
+% using own commands defined above
+\problem{insert your exercise, task, problem here}
+
+\solution{insert your solution here}
+
+
+\end{document}

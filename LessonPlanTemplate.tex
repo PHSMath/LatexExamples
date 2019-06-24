@@ -1,0 +1,126 @@
+\documentclass[a4paper]{article}
+\usepackage{multirow}
+\usepackage{pdflscape, array, calc}
+\usepackage[margin=1cm]{geometry}
+\newlength{\bcw} % basis column (Medien) 1/15 columnwidth - tabcolsep
+\newcolumntype{L}{@{}>{\rule{0pt}{1.1\normalbaselineskip}}m{0pt}@{}}    
+\newcolumntype{P}{>{\arraybackslash}p{2\bcw}}
+\newcolumntype{B}{>{\arraybackslash}p{4\bcw}}
+\newcolumntype{S}{>{\centering\arraybackslash}p{2\bcw}}
+\newcolumntype{s}{>{\centering\arraybackslash}p{\bcw}}
+
+\newcommand{\Imc}[1]{\multicolumn{1}{c|}{#1}}
+\newcommand{\mci}[1]{\multicolumn{1}{p{2\bcw}}{#1}}
+\newcommand{\mcI}[1]{\multicolumn{1}{|l}{#1}}
+\newcommand{\mcc}[1]{\multicolumn{1}{|c|}{#1}}
+\newcommand{\mcII}[1]{\multicolumn{2}{|m{4\bcw+2\tabcolsep}}{#1}}
+\newcommand{\mcV}[1]{\multicolumn{5}{m{9\bcw+6\tabcolsep}|}{#1}}
+
+\thispagestyle{empty}
+
+\begin{document}
+
+
+\begin{landscape}
+\setlength{\bcw}{((\columnwidth) / 15) - \tabcolsep} 
+\centering
+\noindent\rule{\columnwidth}{2pt}\\[1ex] % Chicking the width of the table
+\noindent\begin{tabular}{|P|P|P|P|S|s|B|L}
+
+\hline
+\mcI{Name:} 
+& Steven Taylor
+&\mci{Datum:}
+& June 24, 2019
+&\mci{Student Hours:}
+&\multicolumn{2}{p{5\bcw}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit}
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+\mcI{Class:}
+&Algebra II
+&\mci{Time :}
+&12:25 -- 13:10
+&\mci{}
+&\multicolumn{2}{p{5\bcw}|}{}
+&
+\\
+\hline
+\mcI{Target Hours: }
+&\multicolumn{6}{>{\raggedright}m{13\bcw+10\tabcolsep}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. }
+
+&\rule{0pt}{4.4\normalbaselineskip}
+\\
+\hline
+\mcc{Phases}
+&\multicolumn{3}{>{\centering}p{6\bcw+2\tabcolsep}|}{Main Topics / Operators}
+&\Imc{Social Form}
+&\Imc{Media}
+&\multicolumn{1}{c|}{Learning Objectives}
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+\hline
+&
+\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{}
+&&
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+\textbf{Started/\newline Issue}
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauri}
+&XY
+&XY
+&Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, 
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+(5’)
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{}
+&&&
+&
+\\
+\textbf{Development}
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauri}
+&XY
+&XY
+&Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, 
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+(10’)
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{}
+&&&&
+\\
+\textbf{Presentation}
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauri}
+&XY
+&XY
+&Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, 
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+(15’)
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{}
+&&&&
+\\
+\textbf{Transfer}
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauri}
+&XY
+&XY
+&Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, 
+&\rule{0pt}{2.2\normalbaselineskip}
+\\
+(15’)
+&\multicolumn{3}{p{6\bcw+2\tabcolsep}|}{}
+&&&&
+\\
+\hline
+\mcII{Homework for Hours:}
+&\mcV{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis.}
+&\rule{0pt}{3.3\normalbaselineskip}
+\\
+\hline
+\mcII{Homework at the Next Hour:}
+&\mcV{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. }
+&\rule{0pt}{3.3\normalbaselineskip}
+\\
+\hline
+\end{tabular}
+
+\end{landscape}
+\end{document}

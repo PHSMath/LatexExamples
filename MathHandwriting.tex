@@ -1,0 +1,64 @@
+\documentclass[20pt]{extreport}
+
+ % necessary packages
+ \usepackage{tikz}
+
+ % set the font
+\usepackage[T1]{fontenc}
+\usepackage{lxfonts}
+
+ % help length to store width of text
+ \newlength{\lengthoftext}
+
+   % increase baseline skip
+ \usepackage{setspace}
+\setstretch{2}
+
+ % define height of lowercase letters
+\newcommand{\lowercaseheight}{1ex}
+% define height of uppercase letters
+\newcommand{\uppercaseheight}{1.5ex}
+% you may add more values here and then us them in the {tikzpicture}
+% to add more line to your grid
+
+
+% package to have a "every line" hook
+\usepackage{lineno}
+
+\newenvironment{drillsheet}{%
+% let the "line numbers" start directly at the text
+\setlength\linenumbersep{0pt}%
+% let the "line numbers" be the grid
+\renewcommand{\thelinenumber}{%
+    \begin{tikzpicture}[overlay]
+            % baseline
+            \draw [ultra thick] ((0,0) -- ++(\textwidth,0);
+            % lowercase height
+            \draw ((0,\lowercaseheight) -- ++(\textwidth,0);
+            % uppercase height
+            \draw [thick] (0,\uppercaseheight) -- ++(\textwidth,0);
+    \end{tikzpicture}%
+}%
+% the font and color of the numbers must be set explicitly
+\renewcommand\linenumberfont{\normalfont\color{black}}
+% start "line numbering", i.e. the grid
+\begin{linenumbers}%
+    % set text color to gray
+    \color{black!25}%
+}{
+% end "numbering", i.e. the grid
+\end{linenumbers}%
+}
+
+\begin{document}
+\Large
+\begin{drillsheet}
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\\
+a b c d e f g h i j k l m n o p q r s t u v w x y z\\
+ $1$ $2$ $3$ $4$ $5$ $6$ $7$ $8$ $9$\\
+ $\sin(2x)$ $\cos(\pi t)$\\
+ $\log_2 2^{2x}$ \\
+ \[\int_{i+1}^{\infty} e^{2x}\,dx\]
+
+\end{drillsheet}
+\end{document}

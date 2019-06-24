@@ -1,0 +1,30 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+
+% input external file but ignore the preamble
+\usepackage{standalone}
+
+% generate blindtext
+\usepackage{blindtext}
+
+% add dot after section number
+\makeatletter
+\g@addto@macro\thesection.
+\makeatother
+
+% define command for exercise and solution
+\newcommand{\problem}[1]{\section{Exercise}\subsection*{Problem}{#1}}
+\newcommand{\solution}[1]{\subsection*{Solution for Problem \arabic{section}}{#1}}
+
+
+
+\begin{document}
+\title{All Sheets}
+\maketitle
+
+\input{sheet1.tex}
+\input{sheet2.tex}
+
+
+\end{document}

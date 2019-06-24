@@ -1,0 +1,139 @@
+\documentclass[12pt]{exam}
+\usepackage{graphicx,wrapfig,lipsum}
+\input{insbox}
+\usepackage{capt-of}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{mwe}
+
+\usepackage{etoolbox}
+
+\makeatletter
+%% Stealing some code from exam:
+\def\mypointshandling
+  {%>>>
+    \if@bonus
+      \def\padded@point@block{%
+        \begingroup
+          \@placepointstrue
+          \bonuspoint@block
+        \endgroup
+      }%
+    \else
+      \def\padded@point@block{%
+        \begingroup
+          \@placepointstrue
+          \point@block
+        \endgroup
+      }%
+    \fi
+    \if@pointsdropped
+    \else
+      \if@bonus
+        \if@bonusqformat
+          \ifx\ques@ref\@queslevel
+          \else
+            \setup@point@toks
+          \fi
+        \else
+          \setup@point@toks
+        \fi
+      \else
+        \if@qformat
+          \ifx\ques@ref\@queslevel
+          \else
+            \setup@point@toks
+          \fi
+        \else
+          \setup@point@toks
+        \fi
+      \fi
+    \fi
+    \global \MyIfPointsfalse
+  }%<<<
+\protected\long\def\myOargparse#1#2%>>>
+  {%
+    \@ifnextchar[{\myOargparse@{#2}}{#2{#1}}%
+  }%<<<
+\long\def\myOargparse@#1[#2]%>>>
+  {%
+    #1{#2}%
+  }%<<<
+\def\q@mark{\q@mark}
+\newif\ifMyIfPoints
+\newif\if@notfirstins
+\protected\def\questionInsboxL%>>>
+  {%
+    \myOargparse{\q@mark}{\questionInsbox@a\InsertBoxL}%
+  }%<<<
+\protected\def\questionInsboxR%>>>
+  {%
+    \myOargparse{\q@mark}{\questionInsbox@a\InsertBoxR}%
+  }%<<<
+\protected\long\def\questionInsbox@a#1#2#3#4%>>>
+  {%
+    \myOargparse{0}{\questionInsbox@b{#1}{#2}{#3}{#4}}%
+  }%<<<
+\protected\long\def\questionInsbox@b#1#2#3#4#5%>>>
+  {%
+    \if@notfirstins
+    \else
+      \def\makelabel##1{\hss\llap{##1}}%
+      \apptocmd\@itemlabel{\hskip\leftmargin}{}{}%
+    \fi
+    \ifx\q@mark#2%
+      \question
+    \else
+      \global\MyIfPointstrue
+      \patchcmd\@readpoints{\global\@placepointstrue}{\relax}{}{}%
+      \question[{#2}]%
+      \patchcmd\@readpoints{\relax}{\global\@placepointstrue}{}{}%
+    \fi
+    \if@notfirstins
+    \else
+      \patchcmd\@itemlabel{\hskip\leftmargin}{}{}{}%
+      \let\makelabel\@mklab
+      \@notfirstinstrue
+    \fi
+    \mbox{}%
+    \vspace*{-\baselineskip}%
+    \setlength{\leftskip}{\leftmargin}%
+    \ifx\InsertBoxR#1%
+      #1{#3}{\hskip-\leftmargin#4\hskip\leftmargin}[{#5}]%
+    \else
+      #1{\numexpr#3+1\relax}{#4}[{#5}]\par\hspace{\itemindent}%
+    \fi
+    \ifMyIfPoints
+      \mypointshandling
+    \fi
+    \the\point@toks
+    \ignorespaces
+  }%<<<
+\makeatother
+
+\begin{document}
+\begin{questions}
+  \question[5]\lipsum[2]
+  \questionInsboxR[5]{0}
+    {%
+      \parbox[t]{.3\linewidth}
+        {%
+          \centering
+          \includegraphics[width=\linewidth]{example-image-a.png}%
+          \captionof{figure}{This is A}%
+        }%
+    }[1]
+    Hello, I want to wrap this figure in exam
+    \lipsum[1]
+  \questionInsboxL[5]{2}
+    {%
+      \parbox[t]{.3\linewidth}
+        {%
+          \centering
+          \includegraphics[width=\linewidth]{example-image-a.png}%
+          \captionof{figure}{This is A}%
+        }%
+    }[1]
+    Hello, I want to wrap this figure in exam
+    \lipsum[1]
+\end{questions}
+\end{document}

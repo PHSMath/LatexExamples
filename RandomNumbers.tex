@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{tikz}
+
+\newcommand*{\Difficulty}{10}%
+
+\newcommand{\FracQuestion}[1]{%
+    \foreach \i in {1,...,#1}{%
+      \pgfmathtruncatemacro{\DenomDifficulty}{2*\Difficulty}%
+      \pgfmathtruncatemacro{\Neum}{random(\Difficulty)}
+      \pgfmathtruncatemacro{\Denom}{random(\DenomDifficulty)}
+      \item $\dfrac{\Neum}{\Denom}$%
+    }%
+}%
+
+\newcommand{\LinearSystem}[1]{%
+    \foreach \i in {1,...,#1}{%
+      \pgfmathtruncatemacro{\Xa}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\Ya}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\Za}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\Xb}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\Yb}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\Zb}{random(\Difficulty)}%
+      \item $\begin{cases}\begin{aligned}%
+                \Xa x + \Ya y &= \Za \\%
+                \Xb x + \Yb y &= \Zb \\%
+              \end{aligned}\end{cases}$%
+    }%
+}%
+
+\newcommand{\QuadraticEquations}[1]{%
+    \foreach \i in {1,...,#1}{%
+      \pgfmathtruncatemacro{\A}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\B}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\C}{random(\Difficulty)}%
+      \item $\A x^2 + \B x + \C = 0$%
+    }%
+}%
+
+\newcommand{\QuadraticEquationsEqualRoots}[1]{%
+    \foreach \i in {1,...,#1}{%
+      \pgfmathtruncatemacro{\A}{random(\Difficulty)}%
+      \pgfmathtruncatemacro{\B}{random(\Difficulty)}%
+      \pgfmathsetmacro{\C}{(\B*\B)/(4*\A)}%
+      \item $\A x^2 + \B x + \C = 0$%
+    }%
+}%
+
+
+
+\begin{document}
+\section{Random Fractions:}
+\begin{enumerate}
+  \FracQuestion{3}
+\end{enumerate}
+%
+\section{Random 2x2 Linear Equations:}
+\begin{enumerate}
+  \LinearSystem{3}
+\end{enumerate}
+%
+\section{Random Quadratic Equations:}
+\begin{enumerate}
+  \QuadraticEquations{3}
+\end{enumerate}
+%
+\section{Random Quadratic Equations (Equal Roots):}
+\begin{enumerate}
+  \QuadraticEquationsEqualRoots{3}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,78 @@
+\documentclass[addpoints, 12pt]{exam}
+
+\pagestyle{headandfoot}
+\firstpageheader{\large\bfseries Astronomy Exam\\ \bigskip
+\large\bfseries Last Name:\enspace\makebox[1.9in]{\hrulefill}}
+{}
+{\large\bfseries Univ ID: \makebox[2in]{\hrulefill} \\  \bigskip
+ \large\bfseries First Name:\enspace\makebox[2in]{\hrulefill}}
+\runningheader{\large\bfseries Last Name:\enspace\makebox[1.9in]{\hrulefill}}
+{}
+{\large\bfseries First Name:\enspace\makebox[2in]{\hrulefill}}
+\firstpagefooter{}{}{}
+\runningfooter{}{\thepage}{}
+
+\usepackage{verbatim}
+
+\newenvironment{ex@skripts}[1]{#1}{}
+
+\makeatletter
+\newwrite\verbatim@outSkr % Define file. 
+\immediate\openout\verbatim@outSkr=\jobname.skr  % Open file for writing. 
+
+\def\skript{
+\@bsphack
+\let\do\@makeother\dospecials
+\catcode`\^^M\active
+\def\verbatim@processline{%
+\immediate\write\verbatim@outSkr{\the\verbatim@line}}%
+\immediate\write\verbatim@outSkr{\string\begin{ex@skripts}{\expandafter\thequestion. (\expandafter\totalpoints \ points) Answer:\string\par}}
+\verbatim@start}
+
+\def\endskript{%
+\immediate\write\verbatim@outSkr{\string\end{ex@skripts}}
+\@esphack}
+
+\newcommand*{\includeSkripts}{%
+\immediate\closeout\verbatim@outSkr    % Close file. 
+\InputIfFileExists{\jobname.skr}{}{}
+\newwrite\verbatim@outSkr % Datei wird definiert 
+\immediate\openout\verbatim@outSkr=\jobname.skr  % Open file for writing. 
+}
+\makeatother
+
+\begin{document}
+
+\begin{center}
+\fbox{\fbox{\parbox{5.5in}{\centering
+Answer the questions in the spaces provided on the
+answer sheets.}}}
+\end{center}
+
+\begin{questions}
+
+\question[60] Explain Principle A
+
+\begin{skript}
+\vspace{\stretch{1}}
+\end{skript}
+
+\question[40] Explain Principle B
+
+\begin{skript}
+\vspace{\stretch{1}}
+\end{skript}
+
+\end{questions}
+
+\newpage
+
+\begin{center}
+\fbox{\fbox{\parbox{5.5in}{\centering
+Answer sheet}}}
+\end{center}
+\bigskip
+
+\includeSkripts
+
+\end{document}

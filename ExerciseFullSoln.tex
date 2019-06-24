@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{exsheets,tasks}
+
+\newif\ifshortsolution
+
+\makeatletter
+\newcommand\shortlongsolution[2]{%
+  \ifshortsolution
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {#1}%
+  {#2}%
+}
+\makeatother
+
+\begin{document}
+
+\begin{question}
+	Mickey Mouse went to the zoo
+\end{question}
+\begin{solution}
+  \begin{tasks}(1)
+    \task \shortlongsolution{
+    	Goofy
+    	}{
+    	If I were a rich man\\
+    	Do some math inline $x=\sqrt{23}$.\\
+    	Followed by some display math.\\
+    	\[x=\frac{-b \pm \sqrt{c^2-4ac}}{2a}\]
+    	}
+  \end{tasks}
+\end{solution}
+
+\begin{question}
+	Because I said so
+\end{question}
+
+\begin{solution}
+  \begin{tasks}(1)
+    \task \shortlongsolution{second short}{second long}
+  \end{tasks}
+\end{solution}
+
+\newpage
+\shortsolutiontrue
+
+\section*{Short Solutions}
+\printsolutions
+
+\shortsolutionfalse
+
+\section*{Long Solutions}
+\printsolutions
+
+\end{document}
