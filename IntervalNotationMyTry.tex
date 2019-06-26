@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows, matrix, positioning}
+
+\newcommand\IntervalB[2]{%
+\begin{tikzpicture}
+    \draw[stealth'-stealth'] (-2.5,0) node[below]{$-\infty$} -- (2.5,0) node[below]{$\infty$};
+    \draw[very thick,blue,{#1}-{#2}]
+        (-1.5,0) node[above=4pt]{$a$} -- (1.5,0) node[above=4pt]{$b$};
+\end{tikzpicture}
+               }
+
+\tikzset{matrixtable/.style = {%
+    matrix of nodes,
+     nodes={draw=blue, rounded corners=1ex,
+            minimum height=3ex, inner ysep=1pt,
+            top color=white,
+            bottom color=blue!15,
+            anchor=center},
+    column sep=1ex,
+    row sep=0.6ex,
+    column 1/.style={text width=62mm,nodes={draw=red,bottom color=red!15}},
+    column 2/.style={text width=17mm},
+    column 3/.style={text width=56mm},
+    row 1/.style={nodes={draw=red,bottom color=red!15}},
+    draw, inner sep=1.5mm}}
+
+\newsavebox\plotA
+\newsavebox\plotB
+\newsavebox\plotC
+\newsavebox\plotD
+\newsavebox\plotE
+\newsavebox\plotF
+\newsavebox\plotG
+\newsavebox\plotH
+\sbox\plotA{\IntervalB{[}{]}}
+\sbox\plotB{\IntervalB{[}{)}}
+\sbox\plotC{\IntervalB{(}{)}}
+\sbox\plotD{\IntervalB{(}{stealth'}}
+\sbox\plotE{\IntervalB{[}{stealth'}}
+\sbox\plotF{\IntervalB{stealth'}{)}}
+\sbox\plotG{\IntervalB{stealth'}{]}}
+\sbox\plotH{\IntervalB{(}{)}}
+\begin{document}
+\begin{center}
+\begin{tikzpicture}
+\matrix [matrixtable]
+{
+Interval     & Inequality      & Graph \\
+$[a~,~b]$ Closed Interval & $ a\le x\le b$    &   \usebox\plotA           \\
+$(a~,~b)$ Open Interval & $ a\le x\le b$    &   \usebox\plotH           \\
+$[a~,~b)$                        & $a\le x<b $       &   \usebox\plotB           \\
+$(a~,~b]$                 & $a<x\le b$        &   \usebox\plotC           \\
+$(a~,+\infty )$ & $x>a$             &   \usebox\plotD           \\
+$[a~,+\infty )$ & $x\ge a$          &   \usebox\plotE           \\
+$(-\infty,b~ )$ & $x< b$            &   \usebox\plotF           \\
+$(-\infty,b~ ]$ & $x\le b$          &   \usebox\plotG           \\
+};
+\end{tikzpicture}
+\end{center}
+\end{document}
